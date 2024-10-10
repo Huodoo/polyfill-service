@@ -3,13 +3,23 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "push": "autocannon -c 1000 -d 10 -p 100 -H user-agent='Mozilla/5.0 (Linux; Android 9.0; LEX620 Build/HBXCNCU5601405171S-ROW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36' http://localhost:3000/polyfill ",
+    "dev": "bun run --watch src/index.ts",
+    "build:bin": "bun build --compile --minify --target bun --outfile server src/index.ts",
+    "start": "./server"
   },
   "dependencies": {
-    "elysia": "latest"
+    "cache-manager": "^6.1.0",
+    "elysia": "latest",
+    "polyfill-library": "^4.8.0"
   },
   "devDependencies": {
+    "@types/polyfill-library": "^3.108.4",
+    "autocannon": "^7.15.0",
     "bun-types": "latest"
   },
-  "module": "src/index.js"
+  "module": "src/index.js",
+  "patchedDependencies": {
+    "polyfill-library@4.8.0": "patches/polyfill-library@4.8.0.patch"
+  }
 }
